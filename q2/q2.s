@@ -10,7 +10,7 @@ print_newline:
 
 main: 
 
-#initilize stack
+#initialize stack
 
 addi sp,sp,-64
 sd ra,56(sp) 
