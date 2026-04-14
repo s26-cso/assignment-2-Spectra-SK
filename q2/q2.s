@@ -3,6 +3,9 @@
 print_fmt: 
 .string "%lld "
 
+print_without_space:
+.string "%lld"
+
 print_newline: 
 .string "\n"
 
@@ -132,10 +135,11 @@ j outer_loop
 outer_loop_end:
 
 li s6,0 # i = 0
+addi s0,s0,-1 # s0 = n - 1 ( n = students ) 
 
 print_loop:
 
-bge s6,s0,end 
+bge s6,s0,final_value 
 
 slli t0,s6,3 # t0 = i * 8 bytes
 add t1,s3,t0  # t1 = results + i * 8
@@ -147,6 +151,16 @@ call printf
 
 addi s6,s6,1
 j print_loop
+
+final_value:
+
+# to print the last value without the space at end
+lla a0,print_without_space
+slli t0,s6,3
+add t1,s3,t0 
+ld t2,0(t1)
+mv a1,t2
+call printf
 
 end:
 
